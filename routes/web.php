@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController; // Tambahkan ini di bagian atas
+use App\Http\Controllers\PageController; // Pastikan ini ada di bagian atas
 use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,8 +22,20 @@ Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/cara-order', [PageController::class, 'caraOrder'])->name('cara_order');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/portofolio', [PageController::class, 'portofolio'])->name('portofolio');
+Route::get('/about-us', [PageController::class, 'aboutUs'])->name('about_us');
+
+// Rute untuk menampilkan formulir login (GET)
 Route::get('/login', [PageController::class, 'login'])->name('login');
-Route::get('/register', [PageController::class, 'register'])->name('register'); // Tambahkan juga register
-Route::resource('products', ProductController::class); // Ini akan membuat 7 route sekaligus
-Route::get('/about-us', [PageController::class, 'aboutUs'])->name('about_us'); // Tambahkan ini
-// Nanti akan ada route untuk CRUD dan Midtrans
+// Rute untuk memproses login (POST)
+Route::post('/login', [PageController::class, 'authenticate'])->name('login.authenticate');
+
+
+// Rute untuk menampilkan formulir pendaftaran (GET)
+Route::get('/register', [PageController::class, 'register'])->name('register');
+// Rute untuk memproses data pendaftaran (POST)
+Route::post('/register', [PageController::class, 'storeRegister'])->name('register.store');
+
+// Resource route untuk produk (ini akan membuat 7 rute CRUD untuk model Product)
+Route::resource('products', ProductController::class);
+
+// Nanti akan ada rute tambahan untuk CRUD lainnya dan integrasi Midtrans

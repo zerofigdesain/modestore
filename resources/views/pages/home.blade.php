@@ -797,21 +797,21 @@
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left quote-icon"></i>
                     <p class="text-muted">"Kualitas kaosnya luar biasa, sablonnya rapi, dan respons timnya sangat cepat. Sangat direkomendasikan!"</p>
-                    <span class="author">- Budi Santoso</span>
+                    <span class="author">- Deco Mahendra</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left quote-icon"></i>
                     <p class="text-muted">"Jaket pesanan komunitas kami hasilnya persis seperti yang diharapkan, bahkan lebih baik. Terima kasih Mitologi Clothing!"</p>
-                    <span class="author">- Komunitas Pecinta Alam</span>
+                    <span class="author">- Ilham Maulana Jafar</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left quote-icon"></i>
                     <p class="text-muted">"Pesan kemeja untuk seragam kantor di sini, hasilnya sangat memuaskan. Jahitan rapi dan bahan nyaman dipakai."</p>
-                    <span class="author">- PT. Maju Jaya</span>
+                    <span class="author">- Dian Rahmawati</span>
                 </div>
             </div>
         </div>
