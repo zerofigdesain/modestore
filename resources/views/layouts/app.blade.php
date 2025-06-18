@@ -363,10 +363,29 @@
                         <a class="nav-link {{ Request::is('about-us') ? 'active' : '' }}"
                             href="{{ url('/about-us') }}">About Us</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('login') ? 'active' : '' }}"
-                            href="{{ url('/login') }}">Login</a>
-                    </li>
+
+                    {{-- Bagian yang berubah setelah login: Tambahkan @auth dan @guest --}}
+                    @auth {{-- Jika user sudah login --}}
+                        <li class="nav-item">
+                            {{-- Tampilkan nama user, bisa diubah sesuai kebutuhan --}}
+                            <a class="nav-link" href="#">Halo, {{ Auth::user()->name }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="nav-link btn btn-link text-decoration-none" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Logout</button>
+                            </form>
+                        </li>
+                    @else {{-- Jika user belum login (masih guest) --}}
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('login') ? 'active' : '' }}"
+                                href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('register') ? 'active' : '' }}"
+                                href="{{ route('register') }}">Register</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

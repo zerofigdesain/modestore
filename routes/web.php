@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController; // Pastikan ini ada di bagian atas
 use App\Http\Controllers\ProductController;
+// use App\Http\Controllers\Auth\LoginController; // Tidak perlu jika semua di PageController
+// use App\Http\Controllers\Auth\RegisterController; // Tidak perlu jika semua di PageController
+use App\Http\Controllers\CheckoutController; // Perlu jika kamu sudah buat
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +38,32 @@ Route::get('/register', [PageController::class, 'register'])->name('register');
 // Rute untuk memproses data pendaftaran (POST)
 Route::post('/register', [PageController::class, 'storeRegister'])->name('register.store');
 
-// Resource route untuk produk (ini akan membuat 7 rute CRUD untuk model Product)
-Route::resource('products', ProductController::class);
+// Rute untuk proses logout (POST request)
+Route::post('/logout', [PageController::class, 'logout'])->name('logout');
 
-// Nanti akan ada rute tambahan untuk CRUD lainnya dan integrasi Midtrans
+
+// --- Rute yang membutuhkan autentikasi ---
+// Wrap rute ini dalam middleware 'auth'
+Route::middleware(['auth'])->group(function () {
+    // Rute untuk menampilkan halaman profil pengguna
+    Route::get('/profile', [PageController::class, 'profile'])->name('profile');
+
+    // Resource route untuk produk (ini adalah bagian admin, jadi sebaiknya diproteksi)
+    Route::resource('products', ProductController::class);
+
+    // --- Tambahan: Contoh Route untuk Checkout dan Midtrans ---
+    // Jika ada CheckoutController, aktifkan ini
+    // Route::get('/checkout/{product_id?}', [CheckoutController::class, 'index'])->name('checkout');
+    // Route::post('/checkout/process-payment', [CheckoutController::class, 'processPayment'])->name('checkout.process');
+    // Detail produk publik
+Route::get('/produk/detail/{id}', [ProductController::class, 'showPublic'])->name('produk.detail');
+// Tambah ke keranjang & checkout
+Route::post('/keranjang/tambah', [ProductController::class, 'tambahKeranjang'])->name('keranjang.tambah');
+Route::get('/keranjang', [ProductController::class, 'keranjang'])->name('keranjang');
+Route::get('/checkout', [ProductController::class, 'checkout'])->name('checkout');
+
+});
+
+// Route untuk notifikasi Midtrans (tidak perlu auth, karena diakses oleh Midtrans server)
+// Contoh:
+// Route::post('/midtrans/notification', [CheckoutController::class, 'notificationHandler'])->name('midtrans.notification');

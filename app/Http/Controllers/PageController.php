@@ -124,4 +124,38 @@ class PageController extends Controller
         // 4. Redirect user setelah pendaftaran berhasil
         return redirect('/login')->with('success', 'Pendaftaran berhasil! Silakan masuk.');
     }
+
+    /**
+     * Melakukan logout pengguna.
+     * Ini adalah method baru yang dibutuhkan untuk route logout.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Logout pengguna
+
+        $request->session()->invalidate(); // Invalidasi sesi saat ini
+        $request->session()->regenerateToken(); // Regenerasi token CSRF baru
+
+        return redirect('/')->with('success', 'Anda telah berhasil logout!'); // Redirect ke halaman utama
+    }
+
+    /**
+     * Menampilkan halaman profil pengguna yang sedang login.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function profile()
+    {
+        // Pastikan user sudah login
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Anda harus login untuk melihat profil.');
+        }
+
+        // Ambil data user yang sedang login
+        $user = Auth::user();
+        return view('pages.profile', compact('user'));
+    }
 }
